@@ -14,8 +14,8 @@ algorithm will be O(N*K) where ‘N’ is the number of elements in the input ar
 def find_averages_of_subarrays_brute(arr, K):
 
     result = []
-    sum = 0.0
     for i in range(len(arr)- K +1):
+        sum = 0.0
         
         for j in range(i, i+K):
             sum += arr[j]
