@@ -127,3 +127,11 @@ which is asymptotically equivalent to O(N)
 
 print(smallest_subarray_sum(s, arr))
 '''
+
+####################################################################################
+# Longest Substring with maximum K Distinct Characters
+####################################################################################
+"""
+Given a string, find the length of the longest substring in it with no more than 
+K distinct characters.
+"""
