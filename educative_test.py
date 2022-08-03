@@ -1,18 +1,29 @@
 
-def find_averages_of_subarrays(arr, K):
+def smallest_subarray_sum(s, arr):
 
-    result = []
+    windowSum = 0.0
+    min_length = len(arr)
+    window_start = 0
 
-    for i in range(len(arr)- K +1):
-        sum = 0.0
-        for j in range(i, i+K):
-            sum += arr[j]
-            print("sum range(i, i+K)", sum)
-        result.append(sum/K)
-        print("sum/k", sum/K)
-    return result
+    for i in range(len(arr)):
+        windowSum += arr[i]
+        while windowSum >= s:
+            min_length = min(min_length, i - window_start + 1)
+            windowSum -= arr[window_start]
+            window_start += 1
+    if min_length == len(arr):
+        return 0
+    return min_length
 
 
-K = 5
-arr = [2, 4, 6, 8, 2, 4, 6] # --> ([4.4, 4.8, 5.2])
-print(find_averages_of_subarrays(arr, K))
+
+# s = 7
+# arr = [2, 1, 5, 2, 3, 2] # --> 2
+# s = 8
+# arr = [3, 4, 1, 1, 6] # --> 3
+# s = 8
+# arr = [2, 1, 5, 2, 3, 2] # --> 3
+# s = 8
+# arr = [0] # --> 3
+
+print(smallest_subarray_sum(s, arr))

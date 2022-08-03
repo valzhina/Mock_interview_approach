@@ -1,5 +1,5 @@
 ####################################################################################
-# 07.31.2022 Sliding Windows
+# Sliding Windows
 ####################################################################################
 """
 Given an array, find the average of all subarrays of ‘K’ contiguous elements in it.
@@ -68,3 +68,62 @@ K = 5
 arr = [2, 4, 6, 8, 2, 4, 6]
 print(find_averages_of_subarrays(arr, K))
 """
+
+####################################################################################
+# Smallest Subarray With a Greater Sum
+####################################################################################
+"""
+Given an array of positive integers and a number ‘S,’ find the length of 
+the smallest contiguous subarray whose sum is greater than or equal to ‘S’. 
+Return 0 if no such subarray exists.
+"""
+def smallest_subarray_sum(s, arr):
+
+    windowSum = 0.0
+    min_length = len(arr)
+    window_start = 0
+
+    for i in range(len(arr)):
+        windowSum += arr[i]
+        while windowSum >= s:
+            # remember the length of this window as the smallest window so far
+            min_length = min(min_length, i - window_start + 1) 
+            windowSum -= arr[window_start]
+            window_start += 1
+    if min_length == len(arr):
+        return 0
+    return min_length
+
+"""
+
+    i=0 (range 0 to 6)
+    i=1    windowSum = 2 < 7
+    i=2    windowSum = 2+1+5 =8 / < 7
+    i=3    windowSum = 1+5+2 =8 / < 7
+    i=4    windowSum = 5+2+3 =10 / < 7
+    i=5    windowSum = 2+3+2 =7 / <= 7
+
+        while yes
+            min_length = min(3, 5 - 3 + 1 ) = 3
+            windowSum = 7-2->5
+            window_start =  0->1->2->3->4
+    return 3
+
+The time complexity of the above algorithm will be O(N)
+The outer for loop runs for all elements, and the inner while loop processes 
+each element only once; therefore, the time complexity of the algorithm will be O(N+N),
+which is asymptotically equivalent to O(N)
+"""
+
+'''
+# s = 7
+# arr = [2, 1, 5, 2, 3, 2] # --> 2
+# s = 8
+# arr = [3, 4, 1, 1, 6] # --> 3
+# s = 8
+# arr = [2, 1, 5, 2, 3, 2] # --> 3
+# s = 8
+# arr = [0] # --> 3
+
+print(smallest_subarray_sum(s, arr))
+'''
